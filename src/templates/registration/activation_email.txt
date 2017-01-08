@@ -1,0 +1,11 @@
+{% load i18n %}
+
+{% trans "Activate your account in" %} {{ site.name }}:
+
+Hi,
+click on the link to activate your account.
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+{% blocktrans %}Link valid during {{ expiration_days }} days.{% endblocktrans %}
+
+-Strijp-S community

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_title %}Strijp-Sperience{% endblock %}
+
+<style>
+    {% block style %}
+    	.jumbotron {
+	  		background-color: #172548 !important;
+	  		color: #FFF !important;
+		}
+
+		.icons{
+			background-color: #337ab7 !important;
+			border-radius: 10px;
+			margin-bottom: 30px;
+			margin-top: 20px;
+			text-align: center;
+			padding: 20px;
+			border-color: #172548 !important;
+		}
+
+		.newsletter{
+			margin-bottom: 30px !important;
+			margin-top: 20px !important;
+			text-align: left;
+			boder-color:white !important;	
+		}
+
+		.data{
+			color: black !important;
+			background-color: #172548 !important;
+			margin-bottom: 10px !important;
+			margin-top: 20px !important;
+			border-radius: 10px;	
+		}
+    {% endblock %}
+</style>
+
+
+{% block jumbotron %}
+
+{% if request.user.is_staff %}
+	<div class='container'>
+	<table class='table'>
+{% for instance in queryset %}
+  	<tr><td>{{ forloop.counter }}<td>{{ instance }}</td><td>{{ instance.name }}</td><td>{{ instance.timestamp|timesince }} ago</td></tr><br/>
+  	{% endfor %}
+	</table>
+	</div>
+{% else %}
+
+
+
+<div class="jumbotron">
+ <div class="container">
+	<div class='row'>
+		<div class='col-sm-6'>
+			<h1>Explore the city, enjoy Strijp-S</h1>
+	        <p>Strijp-S lies inside the ring road: close enough to the centre to connect with the city, but sufficiently isolated to retain its own identity and to stick to its own development.</p>
+	        <p>One of the most innovate urban plans in Europe, Just 10 minutes by walk from Eindhoven's city center.</p>
+	        <!--<p>
+	          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button"> Discover it !  &raquo;</a>
+	        </p>-->
+		</div>
+		<div class='col-sm-6'><iframe width="560" height="315" src="https://www.youtube.com/embed/z-3YSVbJmfw" frameborder="0" allowfullscreen></iframe></div>
+	</div>
+</div>
+</div>
+{% endif %}
+{% endblock %}
+
+
+    {{ titulo}} <br/>
+    {{ request.user }}
+<hr/>
+<br/>
+
+{% block content %}
+
+
+<div class = "icons">
+	<div class="row">
+		<div class="col-sm-3 ">
+			<p class = 'lead text-align-center'>1 Train station.<br/><br/>
+			<i class="fa fa-train fa-4x" aria-hidden="true"></i></p>
+		</div>
+
+		<div class="col-sm-3 col-sm-offset-1">
+			<p class = 'lead text-align-center'>1.803 parking spots.<br/><br/>
+			<i class="fa fa-car fa-4x" aria-hidden="true"></i></p>
+		</div>
+
+		<div class="col-sm-3 col-sm-offset-1">
+			<p class = 'lead text-align-center'>More than 1.000.000 visitors.<br/><br/>
+			<i class="fa fa-camera-retro fa-4x" aria-hidden="true"></i></p>
+		</div>	
+	</div>
+</div>
+
+<div class = "newsletter">
+{% if not request.user.is_staff %}
+	<div class="row ">
+		<div class="col-sm-4 col-xs-12  col-sm-offset-1 pull-right data">
+			{%if not user.is_authenticated %}
+			<p class = 'lead text-align-center'> Subscribe to the Strijp-s newsletter </p>
+			<form method="POST" action="">{% csrf_token %}
+			{{ the_form|crispy}}
+			<input type='submit' value='Subscribe' />
+			</form>
+			 {% else %}
+			    <p class='lead text-align-center'>{{ title }}<br/><br/>
+			    <span class="fa-stack fa-4x">
+			  	<i class="fa fa-circle-o-notch fa-spin fa-stack-2x" style="color:#47b78c;"></i>
+			 	<i class="fa fa-hand-peace-o fa-stack-1x"></i>
+				</span></p>
+			{% endif %}
+		</div>
+
+		<div class="col-sm-7 ">
+			<img src='{% static "img/Strijp.png" %}' width="1060" height="200"   class='img-responsive' />
+		</div>
+	</div>
+</div>
+	
+<hr/>
+{% endif %}
+{% endblock %}
