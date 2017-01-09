@@ -2,7 +2,6 @@ Include/
 Lib/
 Scripts/
 pip-selfcheck.json
-
+local_settings.py
 __pycache__/
 *.py[cod]
-local_settings.py
